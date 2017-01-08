@@ -1,220 +1,146 @@
-///
-/// Forty by HTML5 UP
-/// html5up.net | @ajlkn
-/// Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-///
 
 /* Type */
 
-	@font-face {
-		font-family: 'BigJohn';
-		src: url('../fonts/BigJohn.eot');
-		src: url('../fonts/BigJohn.woff2') format('woff2'),
-				url('../fonts/BigJohn.woff') format('woff'),
-				url('../fonts/BigJohn.ttf') format('truetype'),
-				url('../fonts/BigJohn.svg#BigJohn') format('svg'),
-				url('../fonts/BigJohn.eot?#iefix') format('embedded-opentype');
-		font-weight: normal;
-		font-style: normal;
-	}
+$base-font-size: 1rem !default;
+$base-line-height: 1.5 !default;
+$heading-line-height: 1.2 !default;
+$base-spacing: 1rem !default;
+$primary-font: 'Work Sans', sans-serif !default;
+$secondary-font: 'Big John', sans-serif;
 
+//Heading scale
+$giga-scale: 4.00 !default;
+$mega-scale: 3.00 !default;
+$h1-scale: 2.50 !default;
+$h2-scale: 2.00 !default;
+$h3-scale: 1.50 !default;
+$h4-scale: 1.25 !default;
+$h5-scale: 1.00 !default;
+$h6-scale: 0.80 !default;
 
-	body, input, select, textarea {
-		color: _palette(fg);
-		font-family: _font(family);
-		font-size: 17pt;
-		font-weight: _font(weight);
-		letter-spacing: _font(letter-spacing);
-		line-height: 1.5;
+// Flow Text
+$range : $large-screen - $small-screen !default;
+$intervals: 20 !default;
+$interval-size: $range / $intervals !default;
 
-		@include breakpoint(xlarge) {
-			font-size: 14pt;
-		}
+html {
+  font-family: $primary-font;
+  font-weight: normal;
+  color: color("black");
 
-		@include breakpoint(large) {
-			font-size: 12pt;
-		}
+  font-size: $base-font-size;
+  line-height: $base-line-height;
 
-		@include breakpoint(xxsmall) {
-			font-size: 11pt;
-		}
-	}
+  @media only screen and (min-width: 0) {
+    font-size: $base-font-size * 0.8;
+  }
 
-	::selection {
-		background-color: _palette(accent2);
-		color: _palette(fg-bold);
-	}
+  @media only screen and (min-width: $medium-screen) {
+    font-size: $base-font-size;
+  }
 
-	a {
-		@include vendor('transition', (
-			'color #{_duration(transition)} ease-in-out',
-			'border-bottom-color #{_duration(transition)} ease-in-out'
-		));
-		border-bottom: dotted 1px;
-		color: inherit;
-		text-decoration: none;
+  @media only screen and (min-width: $large-screen) {
+    font-size: $base-font-size * 1.1;
+  }
+}
 
-		&:hover {
-			border-bottom-color: transparent;
-			color: _palette(highlight);
-		}
+fieldset,
+p,
+table,
+pre,
+hr {
+  margin-bottom: $base-font-size * $base-line-height;
+}
 
-		&:active {
-			color: desaturate(darken(_palette(highlight), 15), 5) !important;
-		}
-	}
+.giga,
+.mega,
+h1, .h1,
+h2, .h2,
+h3, .h3 {
+  font-weight: 400;
+  line-height: $heading-line-height;
 
-	strong, b {
-		color: _palette(fg-bold);
-		font-weight: _font(weight-bold);
-	}
-	strong {
-		font-family: _font(family-display);
-	}
+  small, .small { font-size: 65%; color: color("black", "secondary"); }
 
-	em, i {
-		font-style: italic;
-	}
+  &+hr { margin-top: -$base-spacing/4; }
+}
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+  line-height: $heading-line-height;
 
-	p {
-		margin: 0 0 _size(element-margin) 0;
-	}
+  small, .small { font-size: 75%; color: color("black", "secondary"); }
+  &+hr { margin-top: -$base-spacing/4; }
+}
 
-	h1, h2, h3, h4, h5, h6 {
-		color: _palette(fg-bold);
-		font-weight: _font(weight-bold);
-		line-height: 1.3;
-		margin: 0 0 (_size(element-margin) * 0.5) 0;
+$gigas: $base-font-size * $giga-scale;
+$megas: $base-font-size * $mega-scale;
+$h1s: $base-font-size * $h1-scale;
+$h2s: $base-font-size * $h2-scale;
+$h3s: $base-font-size * $h3-scale;
+$h4s: $base-font-size * $h4-scale;
+$h5s: $base-font-size * $h5-scale;
+$h6s: $base-font-size * $h6-scale;
+.giga { font-size: $gigas; margin: ($gigas / 1.5) 0 ($gigas / 2.5) 0; }
+.mega { font-size: $megas; margin: ($megas / 1.5) 0 ($megas / 2.5) 0; }
+h1, .h1 { font-size: $h1s; margin: ($h1s / 1.5) 0 ($h1s / 2.5) 0; }
+h2, .h2 { font-size: $h2s; margin: ($h2s / 1.5) 0 ($h2s / 2.5) 0; }
+h3, .h3 { font-size: $h3s; margin: ($h3s / 1.5) 0 ($h3s / 2.5) 0; }
+h4, .h4 { font-size: $h4s; margin: ($h4s / 2) 0 ($h4s / 2.5) 0; font-weight: 500; }
+h5, .h5 { font-size: $h5s; margin: ($h5s / 2) 0 ($h5s / 2.5) 0; font-weight: 600; }
+h6, .h6 { font-size: $h6s; margin: ($h6s / 2) 0 ($h6s / 2.5) 0; font-weight: 600; }
+// margin: ($h1-fontsize / 2) 0 ($h1-fontsize / 2.5) 0;
 
-		a {
-			color: inherit;
-			border-bottom: 0;
-		}
-	}
+em, .em { font-style: italic; }
+strong, .strong { font-weight: 600; }
+small, .small { font-size: 75% }
+.light { font-weight: 300; }
+.thin { font-weight: 200; }
 
-	h1 {
-		font-size: 2.5em;
-	}
+a {
+  transition: color 0.3s;
+  text-decoration: none;
+  color: $link-color;
+  &:active,
+  &:focus,
+  &:hover {
+    transition: color 0.0s;
+    color: $link-hover;
+  }
+}
 
-	h2 {
-		font-size: 1.75em;
-	}
+hr {
+  border-bottom: 1px solid color("black", "disabled");
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  margin: $base-spacing 0;
+}
 
-	h3 {
-		font-size: 1.35em;
-	}
+blockquote {
+  border-left: 4px solid color("primary", "base");
+  color: color("black", "secondary");
+  font-style: italic;
+  $bq-space: $base-font-size * $base-line-height;
+  margin: $bq-space 0 $bq-space 0;
+  padding-left: $base-font-size;
+} 
 
-	h4 {
-		font-size: 1.1em;
-	}
+// Credit to materialize css
+// https://github.com/Dogfalo/materialize/blob/master/sass/components/_typography.scss
+// Auto resizes text to be more readable
+.flow-text {
+  font-weight: 300;
+  $i: 0;
+  @while $i <= $intervals {
+    @media only screen and (min-width : 360 + ($i * $interval-size)) {
+      font-size: $base-font-size * (1 + (.02 * $i));
+    }
+    $i: $i + 1;
+  }
 
-	h5 {
-		font-size: 0.9em;
-	}
-
-	h6 {
-		font-size: 0.7em;
-	}
-
-	@include breakpoint(small) {
-		h1 {
-			font-size: 2em;
-		}
-
-		h2 {
-			font-size: 1.5em;
-		}
-
-		h3 {
-			font-size: 1.25em;
-		}
-	}
-
-	sub {
-		font-size: 0.8em;
-		position: relative;
-		top: 0.5em;
-	}
-
-	sup {
-		font-size: 0.8em;
-		position: relative;
-		top: -0.5em;
-	}
-
-	blockquote {
-		border-left: solid 4px _palette(bg);
-		font-style: italic;
-		font-size: 1.1em;
-		font-weight: 100;
-		margin: _size(element-margin) (_size(element-margin) / 2) _size(element-margin);
-		padding: (_size(element-margin) / 2) 2em;
-		background: _palette(fg-bold);
-		box-shadow: 3px 3px 10px rgba(0, 0, 0, .2);
-		p {
-			margin: 0;
-			color: _palette(accent1) !important;
-		}
-	}
-
-	code {
-		background: _palette(border-bg);
-		font-family: _font(family-fixed);
-		font-size: 0.9em;
-		margin: 0 0.25em;
-		padding: 0.25em 0.65em;
-	}
-
-	pre {
-		-webkit-overflow-scrolling: touch;
-		font-family: _font(family-fixed);
-		font-size: 0.9em;
-		margin: 0 0 _size(element-margin) 0;
-
-		code {
-			display: block;
-			line-height: 1.75;
-			padding: 1em 1.5em;
-			overflow-x: auto;
-		}
-	}
-
-	hr {
-		border: 0;
-		border-bottom: solid 1px _palette(border);
-		margin: _size(element-margin) 0;
-
-		&.major {
-			margin: (_size(element-margin) * 1.5) 0;
-		}
-	}
-
-	.align-left {
-		text-align: left;
-	}
-
-	.align-center {
-		text-align: center;
-	}
-
-	.align-right {
-		text-align: right;
-	}
-
-	.text-wrapper {
-		max-width: 800px;
-		margin: 0 auto;
-		padding: 2em .7em;
-		@media all and (min-width: 500px) {
-			padding: 2em 2em;
-		}
-	}
-	.responsive-text {
-			font-size: calc(.5em + 2vw);
-		@media all and (min-width: 700px) {
-			font-size: calc(14px + .5em);
-		}
-		@media all and (max-width: 450px) {
-			font-size: calc(9px + .5em);
-		}
-	}
+  // Handle below 360px screen
+  @media only screen and (max-width: 360px) {
+    font-size: $base-font-size;
+  }
+}
