@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/innovativedmm/political-revolution.com.png?label=ready&title=Ready)](https://waffle.io/innovativedmm/political-revolution.com)
 # [political-revolution.com](https://github.com/politicalrev/wp.thepoliticalrev.org)
 
 Welcome to the Github repository for the website of [Political Revolution](https://political-revolution.com). It is built upon [Bedrock](https://roots.io/bedrock/) and the [Sage 8.5](https://github.com/roots/sage/releases/latest) starter theme.
