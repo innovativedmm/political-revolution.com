@@ -7,8 +7,8 @@
 /* Box */
 
 	.box {
-		border: solid 1px _palette(border);
-		margin-bottom: _size(element-margin);
+		border: solid 1px $color-border;
+		margin-bottom: $size-element-margin;
 		padding: 1.5em;
 
 		> :last-child,

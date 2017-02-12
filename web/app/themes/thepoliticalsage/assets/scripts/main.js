@@ -10,8 +10,12 @@
  * always reference jQuery with $, even when in .noConflict() mode.
  * ======================================================================== */
 
-(function($) {
+var animations = require('./animations');
+var menu = require('./Menu');
+var tiles = require('./Tiles');
+var banmap = require('./banmap/map');
 
+(function($) {
   // Use this variable to set up the common and page specific functions. If you
   // rename this variable, you will also need to rename the namespace below.
   var Sage = {
@@ -19,6 +23,9 @@
     'common': {
       init: function() {
         // JavaScript to be fired on all pages
+        tiles($);
+        menu($);
+        animations($);
       },
       finalize: function() {
         // JavaScript to be fired on all pages, after page specific JS is fired
@@ -37,6 +44,11 @@
     'about_us': {
       init: function() {
         // JavaScript to be fired on the about us page
+      }
+    },
+    'banmap': {
+      init: function() {
+        banmap($);
       }
     }
   };
@@ -74,4 +86,4 @@
   // Load Events
   $(document).ready(UTIL.loadEvents);
 
-})(jQuery); // Fully reference jQuery after this point.
+}(jQuery)); // Fully reference jQuery after this point.

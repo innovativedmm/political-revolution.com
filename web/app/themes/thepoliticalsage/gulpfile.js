@@ -2,6 +2,7 @@
 var argv         = require('minimist')(process.argv.slice(2));
 var autoprefixer = require('gulp-autoprefixer');
 var browserSync  = require('browser-sync').create();
+var browserify   = require('browserify');
 var changed      = require('gulp-changed');
 var concat       = require('gulp-concat');
 var flatten      = require('gulp-flatten');
@@ -18,7 +19,9 @@ var rev          = require('gulp-rev');
 var runSequence  = require('run-sequence');
 var sass         = require('gulp-sass');
 var sourcemaps   = require('gulp-sourcemaps');
+var transform    = require('vinyl-transform');
 var uglify       = require('gulp-uglify');
+var wiredep = require('wiredep').stream;
 
 // See https://github.com/austinpray/asset-builder
 var manifest = require('asset-builder')('./assets/manifest.json');
@@ -63,7 +66,6 @@ var enabled = {
   // Strip debug statments from javascript when `--production`
   stripJSDebug: argv.production
 };
-
 // Path to the compiled assets manifest in the dist directory
 var revManifest = path.dist + 'assets.json';
 
@@ -125,15 +127,28 @@ var cssTasks = function(filename) {
 //   .pipe(gulp.dest(path.dist + 'scripts'))
 // ```
 var jsTasks = function(filename) {
+  // Create a plugin to bundle js files with Browserify
+  var browserified = transform(function(filename) {
+    var b = browserify({
+      entries: filename,
+      debug: enabled.maps
+    });
+    return b.bundle();
+  });
+
   return lazypipe()
+    .pipe(function() {return browserified;})
     .pipe(function() {
-      return gulpif(enabled.maps, sourcemaps.init());
+      return gulpif(enabled.maps, sourcemaps.init({
+        // Load browserify sourcemaps
+        loadMaps: true
+      }));
     })
     .pipe(concat, filename)
-    .pipe(uglify, {
-      compress: {
-        'drop_debugger': enabled.stripJSDebug
-      }
+    .pipe(function() {
+      return gulpif(!enabled.maps,
+        uglify({compress: {'drop_debugger': enabled.stripJSDebug}})
+      );
     })
     .pipe(function() {
       return gulpif(enabled.rev, rev());
@@ -177,6 +192,12 @@ gulp.task('styles', ['wiredep'], function() {
       });
     }
     merged.add(gulp.src(dep.globs, {base: 'styles'})
+      .pipe(gulpif(!enabled.failStyleTask, plumber({
+        errorHandler: function(err) {
+          console.error(err.message);
+          this.emit('end');
+        }
+      })))
       .pipe(cssTasksInstance));
   });
   return merged
@@ -243,9 +264,12 @@ gulp.task('clean', require('del').bind(null, [path.dist]));
 // build step for that asset and inject the changes into the page.
 // See: http://www.browsersync.io
 gulp.task('watch', function() {
+  gulp.start('build');
   browserSync.init({
     files: ['{lib,templates}/**/*.php', '*.php'],
     proxy: config.devUrl,
+    port: 8083,
+    open: false,
     snippetOptions: {
       whitelist: ['/wp-admin/admin-ajax.php'],
       blacklist: ['/wp-admin/**']
@@ -272,7 +296,6 @@ gulp.task('build', function(callback) {
 // `gulp wiredep` - Automatically inject Less and Sass Bower dependencies. See
 // https://github.com/taptapship/wiredep
 gulp.task('wiredep', function() {
-  var wiredep = require('wiredep').stream;
   return gulp.src(project.css)
     .pipe(wiredep())
     .pipe(changed(path.source + 'styles', {

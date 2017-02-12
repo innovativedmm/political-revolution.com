@@ -1,0 +1,26 @@
+// Wordpress dynamic sidebar styling
+
+aside.sidebar {
+	flex-basis: 18em;
+	display: flex;
+	justify-content: space-around;
+	flex-grow: 1;
+	margin: 2em 1em 2em;
+	font-size: .8em;
+	flex-flow: row wrap;
+	* {
+		color: $color-bg;
+	}
+	h2 {
+		color: $color-bg;
+	}
+	article {
+		overflow: hidden;
+		* {
+			color: $color-fg-bold;
+		}
+	}
+	.widget {
+		flex-basis: 20em;
+	}
+}

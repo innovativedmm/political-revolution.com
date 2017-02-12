@@ -7,7 +7,7 @@
 /* Footer */
 
 	#footer {
-		background: _palette(bg); 
+		background: $color-bg; 
 		padding: 0;
 		margin: 0 auto;
 		width: 100%;
@@ -18,18 +18,52 @@
 
 			// Social links
 			&:first-child {
-				background-color: _palette(accent2);
+				background-color: $color-accent2;
 				text-align: center;
 				font-size: 2em;
-				li a {
-					color: _palette(bg);
-					&:hover {color: _palette(fg-bold);}
+				li {
+					position: relative;
+
+					a {
+						color: $color-bg;
+						position: relative;
+						top: 0px;
+						transition: top 0.2s;
+						text-decoration: none !important;
+
+						.icon-detail {
+							opacity: 0;
+							position: absolute;
+							font-size: 14px;
+							top: 20px;
+							transition: top 0.2s, opacity 0.2s;
+							text-decoration: none;
+							left: 50%;
+							transform: translateX(-50%);
+							width: auto;
+							pointer-events: none;
+						}
+
+						&:hover {
+							color: $color-fg-bold;
+							top: -10px;
+							transition: top 0.2s;
+
+							.icon-detail {
+								opacity: 1;
+								top: 35px;
+								transition: top 0.2s, opacity 0.2s;
+								pointer-events: all;
+							}
+						}
+					}
 				}
 			}
+			
 			// Footer Nav
 			&:nth-of-type(2) {
-				background-color: _palette(fg);
-				color: _palette(bg);
+				background-color: $color-fg;
+				color: $color-bg;
 				position: relative;
 				text-align: center;
 				// display: flex;
@@ -64,13 +98,13 @@
 					padding-left: 0;
 					margin-bottom: 0;
 					li {
-						border-left: solid 1px transparentize(_palette(bg), .6);
-						color: _palette(fg-light);
+						border-left: solid 1px transparentize($color-bg, .6);
+						color: $color-fg-light;
 						display: inline-block;
 						line-height: 1;
 						margin-left: .5em;
 						padding-left: .5em;
-						color: _palette(bg);
+						color: $color-bg;
 						&:first-child {
 							border-left: 0;
 							margin-left: 0;

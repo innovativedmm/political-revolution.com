@@ -12,37 +12,20 @@
       ],
       "main": true
     },
-    "main-old.js": {
-      "files": [
-        "scripts/main-old.js"
-      ]
-    },
-    "util.js": {
-      "files": [
-        "scripts/util.js"
-      ]
-    },
     "customizer.js": {
       "files": [
         "scripts/customizer.js"
       ]
     },
-    "skel.min.js": {
-      "files": [
-        "scripts/skel.min.js"
-      ]
-    },
-    "jquery.scrolly.min.js": {
-      "files": [
-        "scripts/jquery.scrolly.min.js"
-      ]
-    },
     "jquery.js": {
       "bower": ["jquery"]
+    },
+    "bootstrap.js": {
+      "bower": ["bootstrap"]
     }
   },
   "config": {
-    "devUrl": "http://127.0.0.1:8080"
+    "devUrl": "prdev.com"
   }
 }
 

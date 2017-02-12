@@ -1,12 +1,12 @@
 version: '2'
 services:
-  web:
+  prdev.com:
     image: nginx:latest
     ports:
       - "8080:80"
     volumes:
       - ./:/political-revolution.com
-      - ./server/nginx/site.conf:/etc/nginx/conf.d/site.conf
+      - ./web/nginx.conf:/etc/nginx/conf.d/site.conf
       - ./server/nginx/snippets/:/etc/nginx/snippets
       - ./server/nginx/fastcgi.conf:/etc/nginx/fastcgi.conf
   php:
